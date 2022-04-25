@@ -31,9 +31,9 @@
                 <br>
                 <form method="POST" action="{{ route('register') }}" class="form-signup">
                     @csrf
-                    <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt=""
-                         width="72"
-                         height="72">
+{{--                    <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt=""--}}
+{{--                         width="72"--}}
+{{--                         height="72">--}}
                     <h2>Registration</h2>
                     <div class="col-md-12">
                         <div class="row">
