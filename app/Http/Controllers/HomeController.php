@@ -77,7 +77,9 @@ class HomeController extends Controller
     public function redirect_from_short_url(Request $request){
         $url = $request->url();
         $u = Url::withTrashed()->where('short_url',$url)->first();
-        if($u->expiry<time()){
+        if(!$u){
+            return Redirect::to('/')->with('error','Your short url does not exist');
+        }else if($u->expiry<time()){
             return Redirect::to('/')->with('error','Your short url is expired');
         }elseif ($u->deleted_at){
             return Redirect::to('/')->with('error','Your short url is disabled by admin');
