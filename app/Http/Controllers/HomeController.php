@@ -51,15 +51,22 @@ class HomeController extends Controller
         if ($validator->fails()) {
             return Redirect::to('/')->with('error', $validator->getMessageBag()->first());
         } else {
+            //short url will expire after 5 min
             $expiry = strtotime("+5 minutes");
+
+            //call generate random string function
             $str = $this->generateRandomString();
+
             $u = new Url();
             $u->original_url = $request->url;
             $u->short_url = url('/')."/short-url/".$str;
-            $u->expiry = $expiry;
+            $u->expiry = $expiry; //set expiry date
             $u->save();
 
             $details = ["body"=>"Your short url ". $u->short_url." is expired"];
+
+            //dispatch job for sending email(SendEmailJob) along with 5 min delay
+            //this will send the email once short url is expired
             dispatch(new SendEmailJob($details))->delay(now()->addMinutes(5));
 
             return Redirect::to('/shortened-url');
@@ -77,7 +84,7 @@ class HomeController extends Controller
     }
 
     /**
-     * function to generate random string
+     * function to generate random string of 10 characters
      * @param $length
      * @return string
      */
