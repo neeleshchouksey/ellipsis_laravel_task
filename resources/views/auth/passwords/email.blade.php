@@ -3,15 +3,16 @@
 @section('content')
     <div class="content">
         <section>
-            <div class="relative">
-                @if (session('status'))
-                    <div class="success">{{ session('status') }}</div>
-                @endif
-                @error('email')
-                <div class="errors">{{ $message }}</div>
-                @enderror
-                <br>
-                <form method="POST" action="{{ route('password.email') }}" autocomplete="off" class="register">
+            <div class="">
+
+                <form method="POST" action="{{ route('password.email') }}" autocomplete="off" class="form-signin">
+                    @if (session('status'))
+                        <div class="success">{{ session('status') }}</div>
+                    @endif
+                    @error('email')
+                    <div class="errors">{{ $message }}</div>
+                    @enderror
+                    <br>
                     @csrf
                     <table>
                         <tbody>
@@ -28,7 +29,7 @@
                         <tr>
                             <td></td>
                             <td>
-                                <button type="submit">Reset</button>
+                                <button type="submit" class="btn btn-primary mt-3">Reset</button>
                             </td>
                         </tr>
                         <tr>

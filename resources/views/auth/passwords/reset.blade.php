@@ -3,18 +3,19 @@
 @section('content')
     <div class="content">
         <section>
-            <div class="relative">
-                @if (session('status'))
-                    <div class="success">{{ session('status') }}</div>
-                @endif
-                @error('email')
-                <div class="errors">{{ $message }}</div>
-                @enderror
-                @error('password')
-                <div class="errors">{{ $message }}</div>
-                @endif
-                <br>
-                <form method="POST" action="{{ route('password.update') }}" class="register">
+            <div class="">
+
+                <form method="POST" action="{{ route('password.update') }}" class="form-signin">
+                    @if (session('status'))
+                        <div class="success">{{ session('status') }}</div>
+                    @endif
+                    @error('email')
+                    <div class="errors">{{ $message }}</div>
+                    @enderror
+                    @error('password')
+                    <div class="errors">{{ $message }}</div>
+                    @endif
+                    <br>
                     @csrf
                     <input type="hidden" name="token" value="{{ $token }}">
                     <table>
@@ -48,7 +49,7 @@
                         <tr>
                             <td></td>
                             <td>
-                                <button type="submit">Reset Password</button>
+                                <button type="submit" class="btn btn-primary mt-3">Reset Password</button>
                             </td>
                         </tr>
                         <tr>

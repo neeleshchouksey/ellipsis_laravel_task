@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'HomeController@index');
 Route::post('/short-url', 'HomeController@short_url')->name("short-url");
 Route::get('/short-url/{str}', 'HomeController@redirect_from_short_url');
+Route::get('/shortened-url', 'HomeController@shortened_url')->name("shortened-url");
+
 
 ###################### Auth Routes ##########################
 

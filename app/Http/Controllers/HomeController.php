@@ -45,7 +45,7 @@ class HomeController extends Controller
         if ($validator->fails()) {
             return Redirect::to('/')->with('error', $validator->getMessageBag()->first());
         } else {
-            $expiry = strtotime("+5 minutes");
+            $expiry = strtotime("+2 minutes");
             $str = $this->generateRandomString();
             $u = new Url();
             $u->original_url = $request->url;
@@ -54,12 +54,16 @@ class HomeController extends Controller
             $u->save();
 
             $details = ["body"=>"Your short url ". $u->short_url." is expired"];
-            dispatch(new SendEmailJob($details))->delay(now()->addMinutes(5));
+            dispatch(new SendEmailJob($details))->delay(now()->addMinutes(2));
 
-
-            return Redirect::to('/')->with('success', "Generated short url is $u->short_url");
+            return Redirect::to('/shortened-url');
         }
     }
+    public function shortened_url(Request $request){
+        $u = Url::orderBy("id","desc")->first();
+        return view('shortened-url',['url'=>$u]);
+    }
+
     public function getMessages(){
 
         return Message::orderBy('created_at', 'desc')->get();

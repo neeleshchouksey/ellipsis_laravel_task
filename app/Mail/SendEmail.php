@@ -29,8 +29,9 @@ class SendEmail extends Mailable
      */
     public function build()
     {
+        $from = env('MAIL_FROM_ADDRESS');
         return $this->subject('Short Link Expiration Notification')
             ->view('emails.expiry-link',['details'=>$this->details])
-            ->from('deepika.manifest@gmail.com');
+            ->from("$from");
     }
 }
