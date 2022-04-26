@@ -28,7 +28,6 @@ Auth::routes();
 
 Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::get('/dashboard', 'UserController@index');
-Route::get('/get_messages', 'HomeController@getMessages');
 
 ###################### Admin Routes ##########################
 

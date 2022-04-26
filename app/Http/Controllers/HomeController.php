@@ -27,7 +27,7 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Show the application home page.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
@@ -36,6 +36,12 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    /**
+     * function to short  a given url
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
 
     public function short_url(Request $request){
         $data = $request->all();
@@ -59,15 +65,23 @@ class HomeController extends Controller
             return Redirect::to('/shortened-url');
         }
     }
+
+    /**
+     * show success page after shortened url
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function shortened_url(Request $request){
         $u = Url::orderBy("id","desc")->first();
         return view('shortened-url',['url'=>$u]);
     }
 
-    public function getMessages(){
+    /**
+     * function to generate random string
+     * @param $length
+     * @return string
+     */
 
-        return Message::orderBy('created_at', 'desc')->get();
-    }
     public function generateRandomString($length = 10) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
@@ -77,6 +91,12 @@ class HomeController extends Controller
         }
         return $randomString;
     }
+
+    /**
+     * redirect user from short url to it's original url
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
 
     public function redirect_from_short_url(Request $request){
         $url = $request->url();
